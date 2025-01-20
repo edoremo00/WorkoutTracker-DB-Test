@@ -10,76 +10,7 @@ session=Session()
 
 class Base(DeclarativeBase):
         pass
-    
-# class User(Base):
-#     __tablename__="users"
-#     id=mapped_column(Integer,primary_key=True,autoincrement=True)
-#     username=mapped_column(VARCHAR(255),unique=True,nullable=False)
-#     email=mapped_column(VARCHAR(50),unique=True,nullable=False)
-#     created_at=mapped_column(TIMESTAMP(timezone=True),default=func.current_timestamp())
-#     updated_at=mapped_column(TIMESTAMP(timezone=True))
-#     password_hash=mapped_column(VARCHAR(255),nullable=False)
-#     #da risolvere perchè rompe tutto
-#     workouts=relationship("Workout",back_populates="user")
-    
-
-# class WorkoutExercise(Base):
-#     __tablename__="workout_exercises"
-#     id=mapped_column(Integer,primary_key=True,autoincrement=True,nullable=False)
-#     workout_id=mapped_column(Integer,ForeignKey("workouts.id"))
-#     exercise_id=mapped_column(Integer,ForeignKey("exercises.id"))
-#     sets=mapped_column(Integer,nullable=False)
-#     weight=mapped_column(DECIMAL(5,2),nullable=False)
-#     recovery_time=mapped_column(Interval,nullable=False)
-#     # workout = relationship("Workout", back_populates="exercises")
-#     # exercise = relationship("Exercise", back_populates="workout_exercises")
-    
-# class Workout(Base):
-#     __tablename__ = "workouts"
-
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     date = Column(Date, server_default=func.current_date())
-#     notes = Column(Text)
-#     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-#     completed = Column(Boolean, default=False)
-
-#     # Relationships
-#     user = relationship("User", back_populates="workouts")
-#     exercises = relationship(
-#         "Exercise",secondary="workout_exercises"
-#     )
-
-
-
-# class Categories(Base):
-#     __tablename__="categories"
-#     id=mapped_column(Integer,primary_key=True,nullable=False,autoincrement=True)
-#     name=mapped_column(VARCHAR,nullable=False,unique=True)
-#     exercise_categories=relationship("Exercise",secondary="exercise_categories")
-    
-# class ExerciseCategory(Base):
-#     __tablename__="exercise_categories"
-#     id = mapped_column(Integer, primary_key=True, autoincrement=True)
-#     exercise_id = mapped_column(Integer, ForeignKey("exercises.id"), nullable=False)
-#     category_id = mapped_column(Integer, ForeignKey("categories.id"), nullable=False)
-
-#     # exercise = relationship("Exercise", back_populates="exercise_categories")
-#     # category = relationship("Categories", back_populates="exercise_categories")
-
-#     __table_args__ = (
-#         UniqueConstraint("exercise_id", "category_id", name="uix_exercise_category"),
-#     )
-    
-# class Exercise(Base):
-#     __tablename__="exercises"
-#     id=mapped_column(Integer,primary_key=True,autoincrement=True)
-#     exercisename=mapped_column(VARCHAR(50),nullable=False)
-#     # category = mapped_column(VARCHAR(50), nullable=False)
-#     notes=mapped_column(TEXT)
-#     workout_exercises = relationship("Workout", secondary="workout_exercises")
-#     exercise_categories = relationship("Category",secondary="exercise_categories")
-    
-    
+        
 class User(Base):
     __tablename__ = "users"
     id = mapped_column(Integer, primary_key=True, autoincrement=True)
@@ -243,8 +174,6 @@ workout4=Workout(
 # session.add_all([exercise2,exercise3,exercise4,categoriapetto])
 workoutsgianluchino=session.scalars(select(Workout).where(Workout.user_id==2)).all()
 print(workoutsgianluchino[0].notes)
-# for workout in workoutsgianluchino:
-#     print(workout.notes)
 
 
     
